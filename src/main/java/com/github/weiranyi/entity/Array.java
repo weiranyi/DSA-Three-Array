@@ -74,7 +74,8 @@ public class Array<E> {
      */
     public void add(int index, E e) {
         if (size == data.length) {
-            throw new IllegalArgumentException("添加元素失败，数组已经满了！");
+//            throw new IllegalArgumentException("添加元素失败，数组已经满了！");
+            resize(2 * data.length);
         }
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("添加元素失败，插入非法，请在index介于0到size之间位置进行插入！！！");
@@ -104,6 +105,11 @@ public class Array<E> {
         }
         size--;
         data[size] = null; // 通过Java的垃圾回收机制回收；闲散的 != 内存泄漏；手动去除更好！！！
+
+        if (size == data.length / 2) {
+            resize(data.length / 2);
+        }
+
         return ret;
     }
 
@@ -199,5 +205,18 @@ public class Array<E> {
         }
         res.append(']');
         return res.toString();
+    }
+
+    /**
+     * 动态数组，将数组空间的容量变成newCapacity大小
+     *
+     * @param newCapacity
+     */
+    private void resize(int newCapacity) {
+        E[] newBase = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newBase[i] = data[i];
+        }
+        data = newBase;
     }
 }
