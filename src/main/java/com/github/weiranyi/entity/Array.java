@@ -106,7 +106,8 @@ public class Array<E> {
         size--;
         data[size] = null; // 通过Java的垃圾回收机制回收；闲散的 != 内存泄漏；手动去除更好！！！
 
-        if (size == data.length / 2) {
+        // 防止复杂度震荡
+        if (size == data.length / 4 && data.length / 2 != 0) {
             resize(data.length / 2);
         }
 

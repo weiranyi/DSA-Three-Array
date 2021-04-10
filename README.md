@@ -3,6 +3,29 @@
 - 任务：设计一个自定义的数组类，对Java的数组进行增删改查
     - 定义数组内存容量：capacity （代表内存中开辟的空间）
     - 定义数组实际容量：size     （代表使用到的空间）
+## 动态数组复杂度：
+- 添加操作：综合关注最坏的情况O(n)
+  - addLast(e) O(1)
+  - addFirst(e) O(n)
+  - add(index,e) O(n/2)=O(n)
+  - resize操作：O(n)
+- 删除操作：
+  - removeLast(e) O(1)
+  - removeFirst(e) O(n)
+  - remove(index,e) O(n/2)=O(n)
+  - resize操作：O(n)
+- 修改操作
+  - set(index,e) O(1)
+- 查询操作
+  - get(index) O(1)
+  - contains(e) O(n)
+  - find(e) O(n)
+- 总结：
+  - 根据上面时间复杂度的分析，有"语义"的索引复杂度为O(1)
+  - 均摊复杂度：resize操作配合addLast等操作可以采用均摊计算的方法，时间复杂度为O(1)。
+  假设capacity=n,n+1次操作，触发resize操作，相当于每次addLast进行2次基本基本操作
+  - 复杂度震荡：removeLast时resize过急。
+    解决方案：Lazy
 
 
 ## 收获：
